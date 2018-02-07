@@ -49,8 +49,7 @@ pipeline
 					cp $TARGET $DEPLOY_PATH
 					cd $DEPLOY_PATH
 					rm -rf $DEPLOY_TARGET
-					mkdir $DEPLOY_TARGET
-					tar -xvf $TARGET -C .
+					tar -xvf $TARGET
 					mv public $DEPLOY_TARGET
 					rm $TARGET
 				   '''
