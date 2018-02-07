@@ -5,7 +5,7 @@ pipeline
 	environment
 	{
 		TARGET="demoweb.tar.gz"
-		DEPLOY_PATH="/work/web/localhost/"
+		DEPLOY_PATH="/work/web/localhost/demo"
 		DEPLOY_TARGET="demoweb"
 	}
 
