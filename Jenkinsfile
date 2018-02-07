@@ -2,6 +2,13 @@ pipeline
 {
 	agent any
 
+	environment
+	{
+		TARGET="demoweb.tar.gz"
+		DEPLOY_PATH="/work/web/localhost/"
+		DEPLOY_TARGET="demoweb"
+	}
+
 	stages
 	{
 		stage("Initialize")
@@ -20,7 +27,17 @@ pipeline
 			{
 				sh '''
 					gulp build
+
+					tar -czf $TARGET public
 				   '''
+			}
+		}
+
+		stage("Publish artifact")
+		{
+			steps
+			{
+				archiveArtifacts artifacts: "**/$TARGET"
 			}
 		}
 
@@ -29,7 +46,10 @@ pipeline
 			steps
 			{
 				sh '''
-					ls -R public
+					cd $DEPLOY_PATH
+					rm -rf $DEPLOY_TARGET
+					mkdir $DEPLOY_TARGET
+					tar -xvf $TARGET -C $DEPLOY_TARGET
 				   '''
 			}
 		}

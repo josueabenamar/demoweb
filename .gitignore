@@ -1,5 +1,6 @@
 # generated
 public
+*.tar.gz
 
 # dependencies
 node_modules
