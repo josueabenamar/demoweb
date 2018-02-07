@@ -1,0 +1,22 @@
+{
+	"name": "Demo_CICD_Web",
+	"version": "1.0.0",
+	"description": "Demo de CI-CD para una webapp",
+	"devDependencies":
+	{
+		"gulp": "*",
+		"gulp-load-plugins": "*",
+		"gulp-autoprefixer": "*",
+		"gulp-concat": "*",
+		"gulp-rename": "*",
+		"gulp-plumber": "*",
+		"gulp-jshint": "*",
+		"gulp-uglify": "*",
+		"gulp-sass": "*",
+		"browserify": "*",
+		"vinyl-source-stream": "*",
+		"vinyl-buffer": "*",
+		"run-sequence": "*",
+		"browser-sync": "*"
+	}
+}
