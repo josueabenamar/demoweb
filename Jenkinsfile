@@ -50,7 +50,9 @@ pipeline
 					cd $DEPLOY_PATH
 					rm -rf $DEPLOY_TARGET
 					mkdir $DEPLOY_TARGET
-					tar -xvf $TARGET -C $DEPLOY_TARGET
+					tar -xvf $TARGET -C .
+					mv public $DEPLOY_TARGET
+					rm $TARGET
 				   '''
 			}
 		}
