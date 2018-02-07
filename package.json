@@ -6,17 +6,10 @@
 	{
 		"gulp": "*",
 		"gulp-load-plugins": "*",
-		"gulp-autoprefixer": "*",
-		"gulp-concat": "*",
-		"gulp-rename": "*",
-		"gulp-plumber": "*",
-		"gulp-jshint": "*",
-		"gulp-uglify": "*",
 		"gulp-sass": "*",
 		"browserify": "*",
-		"vinyl-source-stream": "*",
 		"vinyl-buffer": "*",
-		"run-sequence": "*",
+		"vinyl-source-stream": "*",
 		"browser-sync": "*"
 	}
 }

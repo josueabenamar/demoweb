@@ -1,12 +1,9 @@
 # generated
-public/js/app.js
-public/js/app.min.js
-public/css/app.css
-public/css/app.min.css
+public
 
 # dependencies
 node_modules
 
 # extras
-npm-debug.log
+*.log
 .sass-cache

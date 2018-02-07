@@ -2,50 +2,67 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
-var browserSync = require('browser-sync');
-var sass = require('gulp-sass');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+$.browserify = require('browserify');
+$.buffer = require('vinyl-buffer');
+$.source = require('vinyl-source-stream');
+$.sync = require('browser-sync');
 
+var src_dir = "./src/";
+var public_dir = "./public/";
+
+
+gulp.task('gen-html', function()
+{
+	gulp.src(src_dir + "html/**/*").
+	 pipe(gulp.dest(public_dir));
+});
+
+gulp.task('gen-js', function()
+{
+	var js_dir = public_dir + "js";
+
+	$.browserify(src_dir + "js/app.js").
+	 bundle().
+	 pipe($.source("app.js")).
+	 pipe($.buffer()).
+	 pipe(gulp.dest(js_dir));
+
+	gulp.src(src_dir + "js/vendor/*").
+	 pipe(gulp.dest(js_dir));
+});
+
+gulp.task('gen-css', function()
+{
+	var css_dir = public_dir + "css";
+
+	gulp.src(src_dir + "css/app.scss").
+	 pipe($.sass()).
+	 pipe(gulp.dest(css_dir));
+
+	gulp.src(src_dir + "css/vendor/*").
+ 	 pipe(gulp.dest(css_dir));
+});
 
 gulp.task('browser-sync', function()
 {
-	browserSync
+	$.sync
 	({
-		server:
-		{
-			baseDir: "./public"
-		}
+		server: { baseDir: public_dir }
 	});
 });
 
 gulp.task('browser-reload', function()
 {
-	browserSync.reload({stream:true});
+	$.sync.reload({stream:true});
 });
 
-gulp.task('gen-js', function()
+gulp.task('build', ['gen-html', 'gen-js', 'gen-css'], function()
 {
-	return browserify("src/js/app.js").
-		bundle().
-		pipe(source("app.js")).
-		pipe(buffer()).
-		pipe(gulp.dest("public/js")).
-		pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('gen-css', function()
+gulp.task('serve', ['build', 'browser-sync'], function()
 {
-	return gulp.src("src/sass/app.scss").
-		pipe(sass()).
-		pipe(gulp.dest("public/css")).
-		pipe(browserSync.reload({stream:true}));
-});
-
-gulp.task('serve', ['gen-js', 'gen-css', 'browser-sync'], function()
-{
-	gulp.watch("src/js/**/*.js", ["gen-js"]);
-	gulp.watch("src/sass/**/*.scss", ["gen-css"]);
-	gulp.watch("public/*.html", ["browser-reload"]);
+	gulp.watch("src/html/**", ['gen-html', 'browser-reload']);
+	gulp.watch("src/js/**/*.js", ['gen-js', 'browser-reload']);
+	gulp.watch("src/sass/**/*.scss", ['gen-css', 'browser-reload']);
 });
